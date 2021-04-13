@@ -1,39 +1,19 @@
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 
 namespace ConsoleApp51
 {
 	public class players
 	{
-		public string Name; 
-		public string logo;
+		public string Name { get; set; }
+		public string logo { get; set; }
 
 	}
-	class Program
-	{
-		static void Main(string[] args)
-		{
-			players Fplayer = new players();
-			players Splayer = new players();
-
-			Console.WriteLine("Starting the game...");
-			Console.WriteLine("Enter first player name");
-			Fplayer.Name = Console.ReadLine();
-			Console.WriteLine("******************************");
-			Console.WriteLine("Enter first player name");
-			Splayer.Name = Console.ReadLine();
-			Fplayer.logo = "X";
-			Splayer.logo = "O";
+	public  class Display
+    {
+		public void board()
+        {
 			char[,] board = new char[9, 10];
-			Console.WriteLine("***********************");
-			Console.WriteLine("First Player :" + Fplayer.Name );
-			Console.WriteLine("Second Player :"+Splayer.Name);
-			Console.WriteLine("***********************\n\n");
 			double rows = 6;
 			double columns = 7;
 
@@ -52,10 +32,34 @@ namespace ConsoleApp51
 				Console.WriteLine(" ||");
 			}
 
-		
+		}
+
+    }
+	class Program
+	{
+		static void Main(string[] args)
+		{
+			players Fplayer = new players();
+			players Splayer = new players();
+
+			Console.WriteLine("Starting the game...");
+			Console.WriteLine("Enter first player name");
+			Fplayer.Name = Console.ReadLine();
+			Console.WriteLine("******************************");
+			Console.WriteLine("Enter first player name");
+			Splayer.Name = Console.ReadLine();
+			Fplayer.logo = "X";
+			Splayer.logo = "O";
+			
+			Console.WriteLine("***********************");
+			Console.WriteLine("First Player :" + Fplayer.Name);
+			Console.WriteLine("Second Player :" + Splayer.Name);
+			Console.WriteLine("***********************\n\n");
+
+			Display board = new Display();
+			board.board();
+
 			Console.ReadLine();
 		}
 	}
 }
-
-
