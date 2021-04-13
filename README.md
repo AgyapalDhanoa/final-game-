@@ -1,53 +1,99 @@
+
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
 using System;
 
 
 namespace ConsoleApp51
 {
-	public class players
+	public class PlayerData
 	{
-		public string Name { get; set; }
-		public string logo { get; set; }
+
+
+		public static int steps { get; private set; }
+
+
+		public static int totalPlayers;
+
+		public string playerName;
+
+
+
+
+		public PlayerData(string name)
+		{
+
+			playerName = name;
+			totalPlayers++;
+			
+		}
+
+
+		public static int WhoesTurn()
+		{
+
+			return (steps % totalPlayers) + 1;
+		}
+
+
+		public string GetPlayerName()
+		{
+
+			return playerName;
+		}
+
+		public static void displaydata()
+        {
+			Console.WriteLine("Total players are : " + totalPlayers);
+
+        }
+
 
 	}
 
-
-	public class again :Display
-    {
+	public class again : Display
+	{
 		public int nowagain { get; set; }
 
 		public again()
-        {
-        }
+		{
+		}
 
 		public again(int again)
-        {
+		{
 			nowagain = again;
-        }
+		}
 
-		public void  starter()
-        {
-			if(nowagain == 1)
-            {
+		public void starter()
+		{
+			if (nowagain == 1)
+			{
 				Display board = new Display();
 				board.Board();
 
 			}
 			else
-            {
+			{
+			
 				Console.WriteLine("Game End");
-            }
-        }
+			}
+		}
 
 
-    }
+	}
 
-	public  class Display
-    {
+	public class Display
+	{
 		public void Board()
 		{
-			char[,] board = new char[9, 10]; 
-		 double rows  = 6;
+			Console.Clear();
+			char[,] board = new char[9, 10];
+			double rows = 6;
 			double columns = 7;
+			Console.WriteLine("Now playing player: {0}", PlayerData.WhoesTurn());
 
 			for (int i = 1; i <= rows; i++)
 			{
@@ -66,39 +112,50 @@ namespace ConsoleApp51
 
 		}
 
-    }
+	}
 	class Program
 	{
 		static void Main(string[] args)
 		{
-			players Fplayer = new players();
-			players Splayer = new players();
 
-			Console.WriteLine("Starting the game...");
-			Console.WriteLine("Enter first player name");
-			Fplayer.Name = Console.ReadLine();
-			Console.WriteLine("******************************");
-			Console.WriteLine("Enter first player name");
-			Splayer.Name = Console.ReadLine();
-			Fplayer.logo = "X";
-			Splayer.logo = "O";
-			
-			Console.WriteLine("***********************");
-			Console.WriteLine("First Player :" + Fplayer.Name);
-			Console.WriteLine("Second Player :" + Splayer.Name);
-			Console.WriteLine("***********************\n\n");
+			string choice;
+			string playerName;
+			List<PlayerData> players = new List<PlayerData>();
+			do
+			{
+				Console.WriteLine("Please enter a player name: ");
+				playerName = Console.ReadLine();
+				PlayerData newPlayer = new PlayerData(playerName);
+				players.Add(newPlayer);
+				Console.WriteLine("Another player? :Y/N ");
+				choice = Console.ReadLine();
+			} while (choice == "y" || choice == "Y");
+
+
+			Console.Clear();
 
 			Display board = new Display();
 			board.Board();
-			Console.WriteLine("Do you want to Continue   \n Yes : 1  No  :  0");
-			string answers = Console.ReadLine();
-			int answer = Convert.ToInt32(answers);
-			again a = new again(answer);
-			a.starter();
+
+
+			int answer;
+			do
+			{
+
 			
+				Console.WriteLine("Do you want to Continue   \n Yes : 1  No  :  0");
+				string answers = Console.ReadLine();
+				 answer = Convert.ToInt32(answers);
+				again a = new again(answer);
+
+				a.starter();
+			} while (answer == 1);
+
+
 
 
 			Console.ReadLine();
 		}
 	}
 }
+
