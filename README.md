@@ -28,14 +28,9 @@ namespace ConsoleApp51
         {
 			if(nowagain == 1)
             {
+				Display board = new Display();
+				board.Board();
 
-				for (int i = 1; i <= 6; i++)
-				{
-					for (int j = 1; j <= 7; j++)
-					{
-						
-					}
-				}
 			}
 			else
             {
@@ -48,10 +43,10 @@ namespace ConsoleApp51
 
 	public  class Display
     {
-		public void board()
-        {
-			char[,] board = new char[9, 10];
-			double rows = 6;
+		public void Board()
+		{
+			char[,] board = new char[9, 10]; 
+		 double rows  = 6;
 			double columns = 7;
 
 			for (int i = 1; i <= rows; i++)
@@ -94,7 +89,7 @@ namespace ConsoleApp51
 			Console.WriteLine("***********************\n\n");
 
 			Display board = new Display();
-			board.board();
+			board.Board();
 			Console.WriteLine("Do you want to Continue   \n Yes : 1  No  :  0");
 			string answers = Console.ReadLine();
 			int answer = Convert.ToInt32(answers);
