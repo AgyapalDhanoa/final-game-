@@ -1,7 +1,7 @@
 
 using System;
 
-namespace consoleApp51
+namespace ConsoleApp51
 {
 
     public class playerInfo
@@ -13,7 +13,7 @@ namespace consoleApp51
 
     public class again : Display
     {
-        public int nowagain { get; set; }
+        public int Nowagain { get; set; }
 
         public again()
         {
@@ -22,15 +22,15 @@ namespace consoleApp51
 
         public again(int again)
         {
-            nowagain = again;
+            Nowagain = again;
         }
 
         public void starter()
         {
-            if (nowagain == 1)
+            if (Nowagain == 1)
             {
-                Display board = new Display();
-                board.Board();
+                Display newer = new Display();
+                newer.Board();
 
             }
             else
@@ -66,18 +66,31 @@ namespace consoleApp51
                 Console.Write("        || ");
                 for (int j = 1; j <= columns; j++)
                 {
-                 Console.Write(Boards[i, j]);
+                    
+
+                    Console.Write(Boards[i, j]);
+
                 }
+
                 Console.WriteLine(" ||");
             }
+
         }
     }
+
+
+  
+
     public class Winning 
     {
         public static int vertical { get; set; } = 6;
+     
+
         public Winning()
         {
+
         }
+       
         public static void winner(char[,] board, playerInfo current, int chosen)
         {
             int  turn =0;
@@ -85,7 +98,8 @@ namespace consoleApp51
 
             do
             {
-                if (board[vertical, chosen] != 'X' && board[vertical, chosen] != 'O')
+                if (board[vertical, chosen] != 'X' && 
+                    board[vertical, chosen] != 'O')
                 {
                     board[vertical, chosen] = current.Logo;
                     turn = 1;
@@ -95,21 +109,30 @@ namespace consoleApp51
                     --vertical;
                 }
             } while (turn != 1);
+
+
         }
 
     }
+
+
+
+
     public class Entry :playerInfo
     {
 
       public static  int entrychoice;
         public Entry()
-        { 
+        {
+
         }
-        public static int put(char[,] board, playerInfo current)
+
+        public static int PlayerDrop(char[,] board, playerInfo current)
         {
            
 
             Console.WriteLine(current.Name + " is playing now  \n\n");
+
             do
             {
                 Console.WriteLine("Enter in the limit of 1 to 7: ");
@@ -118,6 +141,84 @@ namespace consoleApp51
             return entrychoice;
         }
     }
+
+
+
+
+
+
+
+    public class Condtions
+    {
+
+
+
+
+        public static int CheckFour(char[,] board, playerInfo current)
+        {
+            char pattern;
+            int win;
+
+            pattern = current.Logo;
+            win = 0;
+
+            for (int i = 7; i >= 0; --i)
+            {
+
+                for (int j = 8; j >= 0; --j)
+                {
+
+                    if (board[i, j] == pattern &&
+                        board[i - 1, j - 1] == pattern &&
+                        board[i - 2, j - 2] == pattern && 
+                        board[i - 3, j - 3] == pattern)
+                    {
+                        win++;
+                    }
+                    else if (board[i, j] == pattern
+                        && 
+                        board[i - 1, j] == pattern
+                        &&
+
+                  board[i - 2, j] == pattern 
+                  &&
+                  board[i - 3, j] == pattern)
+                    {
+                        win++;
+                    }
+
+                    else if (board[i, j] == pattern &&
+                        board[i, j - 1] == pattern &&
+                         board[i, j - 2] == pattern &&
+                         board[i, j - 3] == pattern)
+                    {
+                        win++;
+                    }
+
+              
+
+                    else if (board[i, j] == pattern &&
+                        board[i - 1, j + 1] == pattern &&
+                        board[i - 2, j + 2] == pattern && 
+                        board[i - 3, j + 3] == pattern)
+                    {
+                        win++;
+                    }
+
+                    else if (board[i, j] == pattern && 
+                        board[i, j + 1] == pattern &&
+                             board[i, j + 2] == pattern &&
+                             board[i, j + 3] == pattern)
+                    {
+                        return win;
+                    }
+                }
+
+            }
+            return win;
+        }
+    }
+
     public class WholeBoardDisplay
     {
 
@@ -140,11 +241,8 @@ namespace consoleApp51
                 Console.Write("| \n");
             }
 
-        }
-        
+        } 
     }
-
-
     class Program
     {
 
@@ -153,41 +251,48 @@ namespace consoleApp51
         {
             playerInfo FPlayer = new playerInfo();
             playerInfo SPlayer = new playerInfo();
-            char[,] gameboard = new char[9, 10];
-            Console.WriteLine("First player name: ");
+
+
+            char[,] board = new char[9, 10];
+
+
+            Console.WriteLine("Enter player 1 name: ");
             FPlayer.Name = Console.ReadLine();
             FPlayer.Logo = 'X';
-            Console.WriteLine("Second player name : ");
+            Console.WriteLine("Enter player 2 name: ");
             SPlayer.Name = Console.ReadLine();
             SPlayer.Logo = 'O';
 
-            
-            WholeBoardDisplay.DisplayBoard(gameboard);
-            int Entered, win = 0, reset = 0;
+            int dropChoice, win = 0, reset = 0;
+            WholeBoardDisplay.DisplayBoard(board);
+
             do
             {
-                Entered = Entry.put(gameboard, FPlayer);
-                Winning.winner(gameboard, FPlayer, Entered);
-                WholeBoardDisplay.DisplayBoard(gameboard);
-                Entered = Entry.put(gameboard, SPlayer);
-                Winning.winner(gameboard, SPlayer, Entered);
-                WholeBoardDisplay.DisplayBoard(gameboard);
+                dropChoice = Entry.PlayerDrop(board, FPlayer);
+                Winning.winner(board, FPlayer, dropChoice);
+                WholeBoardDisplay.DisplayBoard(board);
+                win = Condtions.CheckFour(board, FPlayer);
 
+                dropChoice = Entry.PlayerDrop(board, SPlayer);
+                Winning.winner(board, SPlayer, dropChoice);
+                WholeBoardDisplay.DisplayBoard(board);
+                win = Condtions.CheckFour(board, SPlayer);
                 if (win == 1)
                 {
                     Console.WriteLine("Player 1 wins");
-    
+
+                   
                 }
-                if(win == 2)
+                if (win == 2)
                 {
-                    Console.WriteLine("player 2 wins");
+                    Console.WriteLine("Player 2 wins");
+
+
                 }
 
-               
+
             } while (reset == 1);
 
         }
-
-  
     }
 }
