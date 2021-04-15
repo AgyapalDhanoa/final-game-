@@ -47,7 +47,7 @@ namespace ConsoleApp51
         
         public double rows = 6;
         public double columns = 7;
-        char[,] Boards;
+        char[,] Boards { get; set; }
         public Display()
         {
             
@@ -76,6 +76,11 @@ namespace ConsoleApp51
             }
 
         }
+       
+
+            
+
+        
     }
 
 
@@ -89,7 +94,10 @@ namespace ConsoleApp51
         public Winning()
         {
 
+
+
         }
+
        
         public static void winner(char[,] board, playerInfo current, int chosen)
         {
@@ -137,7 +145,9 @@ namespace ConsoleApp51
             {
                 Console.WriteLine("Enter in the limit of 1 to 7: ");
                 entrychoice = Convert.ToInt32(Console.ReadLine());
-            } while (entrychoice < 1 || entrychoice > 7);
+            } while (entrychoice <=0 || entrychoice >= 6);
+
+
             return entrychoice;
         }
     }
@@ -210,7 +220,7 @@ namespace ConsoleApp51
                              board[i, j + 2] == pattern &&
                              board[i, j + 3] == pattern)
                     {
-                        return win;
+                         win++;
                     }
                 }
 
@@ -238,7 +248,7 @@ namespace ConsoleApp51
 
                 }
 
-                Console.Write("| \n");
+                Console.Write("|| \n");
             }
 
         } 
@@ -253,7 +263,7 @@ namespace ConsoleApp51
             playerInfo SPlayer = new playerInfo();
 
 
-            char[,] board = new char[9, 10];
+            
 
 
             Console.WriteLine("Enter player 1 name: ");
@@ -264,6 +274,7 @@ namespace ConsoleApp51
             SPlayer.Logo = 'O';
 
             int choose, win = 0, reset = 0;
+            char[,] board = new char[9, 10];
             WholeBoardDisplay.DisplayBoard(board);
 
             do
@@ -280,8 +291,6 @@ namespace ConsoleApp51
                 if (win == 1)
                 {
                     Console.WriteLine("Player 1 wins");
-
-                   
                 }
                 if (win == 2)
                 {
