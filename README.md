@@ -127,7 +127,7 @@ namespace ConsoleApp51
 
         }
 
-        public static int PlayerDrop(char[,] board, playerInfo current)
+        public static int enterdata(char[,] board, playerInfo current)
         {
            
 
@@ -263,18 +263,18 @@ namespace ConsoleApp51
             SPlayer.Name = Console.ReadLine();
             SPlayer.Logo = 'O';
 
-            int dropChoice, win = 0, reset = 0;
+            int choose, win = 0, reset = 0;
             WholeBoardDisplay.DisplayBoard(board);
 
             do
             {
-                dropChoice = Entry.PlayerDrop(board, FPlayer);
-                Winning.winner(board, FPlayer, dropChoice);
+                choose = Entry.enterdata(board, FPlayer);
+                Winning.winner(board, FPlayer, choose);
                 WholeBoardDisplay.DisplayBoard(board);
                 win = Condtions.conditions(board, FPlayer);
 
-                dropChoice = Entry.PlayerDrop(board, SPlayer);
-                Winning.winner(board, SPlayer, dropChoice);
+                choose = Entry.enterdata(board, SPlayer);
+                Winning.winner(board, SPlayer, choose);
                 WholeBoardDisplay.DisplayBoard(board);
                 win = Condtions.conditions(board, SPlayer);
                 if (win == 1)
