@@ -42,7 +42,7 @@ namespace ConsoleApp51
 
     }
 
-    public class Display
+    public class Display :playerInfo
     {
         
         public double rows = 6;
@@ -118,7 +118,7 @@ namespace ConsoleApp51
 
 
 
-    public class Entry :playerInfo
+    public class Entry 
     {
 
       public static  int entrychoice;
@@ -154,7 +154,7 @@ namespace ConsoleApp51
 
 
 
-        public static int CheckFour(char[,] board, playerInfo current)
+        public static int conditions(char[,] board, playerInfo current)
         {
             char pattern;
             int win;
@@ -271,12 +271,12 @@ namespace ConsoleApp51
                 dropChoice = Entry.PlayerDrop(board, FPlayer);
                 Winning.winner(board, FPlayer, dropChoice);
                 WholeBoardDisplay.DisplayBoard(board);
-                win = Condtions.CheckFour(board, FPlayer);
+                win = Condtions.conditions(board, FPlayer);
 
                 dropChoice = Entry.PlayerDrop(board, SPlayer);
                 Winning.winner(board, SPlayer, dropChoice);
                 WholeBoardDisplay.DisplayBoard(board);
-                win = Condtions.CheckFour(board, SPlayer);
+                win = Condtions.conditions(board, SPlayer);
                 if (win == 1)
                 {
                     Console.WriteLine("Player 1 wins");
