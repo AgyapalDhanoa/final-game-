@@ -1,0 +1,66 @@
+
+public class Condtions
+{
+
+
+
+
+    public static int CheckFour(char[,] board, playerInfo activePlayer)
+    {
+        char pattern;
+        int win;
+
+        pattern = activePlayer.Logo;
+        win = 0;
+
+        for (int i = 7; i >= 0; --i)
+        {
+
+            for (int j = 8; j >= 0; --j)
+            {
+
+                if (board[i, j] == pattern && board[i - 1, j - 1] == pattern && 
+  board[i - 2, j - 2] == pattern
+                   && board[i - 3, j - 3] == pattern)
+                {
+                    win++;
+                }
+                else if (board[i, j] == pattern
+                    &&
+                    board[i - 1, j] == pattern
+                    &&
+
+              board[i - 2, j] == pattern
+              &&
+              board[i - 3, j] == pattern)
+                {
+                    win++;
+                }
+
+                else if (board[i, j] == pattern && board[i, j - 1] == pattern &&
+                     board[i, j - 2] == pattern && board[i, j - 3] == pattern)
+                {
+                    win++;
+                }
+
+
+
+                else if (board[i, j] == pattern && board[i - 1, j + 1] == pattern &&
+                    board[i - 2, j + 2] == pattern && board[i - 3, j + 3] == pattern)
+                {
+                    win++;
+                }
+
+                else if (board[i, j] == pattern && board[i, j + 1] == pattern &&
+                         board[i, j + 2] == pattern && board[i, j + 3] == pattern)
+                {
+                    return win;
+                }
+            }
+
+        }
+        return win;
+    }
+}
+
+
